@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utility>
 
 #include "driver.hh"
 #include "parser.hh"
@@ -123,16 +124,84 @@ void Driver::clearErrors() {
 }
 
 void Driver::clearVariables() {
-  for (auto& int_arr : int_array_variables_) {
-    delete int_arr.second;
-  }
-  for (auto& bool_arr : boolean_array_variables_) {
-    delete bool_arr.second;
-  }
-
   variable_name_to_type_.clear();
   int_variables_.clear();
   boolean_variables_.clear();
-  int_array_variables_.clear();
-  boolean_array_variables_.clear();
+  int_arrays_.clear();
+  boolean_arrays_.clear();
+}
+
+int Driver::getIntArrayElementValue(const std::string &name, size_t index) const {
+  verifyVariableType(name, INT_ARRAY);
+  auto int_array = int_arrays_.at(name);
+  verifyIndexSize(int_array, index);
+  return int_array->operator[](index);
+}
+
+bool Driver::getBooleanArrayElementValue(const std::string &name, size_t index) const {
+  verifyVariableType(name, BOOLEAN_ARRAY);
+  auto boolean_array = boolean_arrays_.at(name);
+  verifyIndexSize(boolean_array, index);
+  return boolean_array->operator[](index);
+}
+
+std::shared_ptr<std::vector<int>> Driver::getIntArrayReference(const std::string &name) {
+  verifyVariableType(name, INT_ARRAY);
+  return int_arrays_[name];
+}
+
+std::shared_ptr<std::vector<bool>> Driver::getBooleanArrayReference(const std::string &name) {
+  verifyVariableType(name, BOOLEAN_ARRAY);
+  return boolean_arrays_[name];
+}
+
+void Driver::declareIntArray(const std::string &name) {
+  verifyIfVariableIsUndeclared(name);
+  variable_name_to_type_[name] = INT_ARRAY;
+}
+
+void Driver::declareBooleanArray(const std::string &name) {
+  verifyIfVariableIsUndeclared(name);
+  variable_name_to_type_[name] = BOOLEAN_ARRAY;
+}
+
+void Driver::allocateMemoryForIntArray(const std::string &name, size_t size) {
+  verifyVariableType(name, INT_ARRAY);
+  int_arrays_[name] = std::make_shared<std::vector<int>>(size);
+}
+
+void Driver::allocateMemoryForBooleanArray(const std::string &name, size_t size) {
+  verifyVariableType(name, BOOLEAN_ARRAY);
+  boolean_arrays_[name] = std::make_shared<std::vector<bool>>(size);
+}
+
+void Driver::setIntArrayElementValue(const std::string &name, size_t index, int value) {
+  verifyVariableType(name, INT_ARRAY);
+  auto int_array = int_arrays_.at(name);
+  verifyIndexSize(int_array, index);
+  int_array->operator[](index) = value;
+}
+
+void Driver::setBooleanArrayElementValue(const std::string &name, size_t index, bool value) {
+  verifyVariableType(name, BOOLEAN_ARRAY);
+  auto boolean_array = boolean_arrays_.at(name);
+  verifyIndexSize(boolean_array, index);
+  boolean_array->operator[](index) = value;
+}
+
+template<typename T>
+void Driver::verifyIndexSize(std::shared_ptr<std::vector<T>> array, size_t index) const {
+  if (array->size() <= index) {
+    throw OutOfRangeException("Array index out of range");
+  }
+}
+
+void Driver::setIntArrayReference(const std::string &name, std::shared_ptr<std::vector<int>> reference) {
+  verifyVariableType(name, INT_ARRAY);
+  int_arrays_[name] = std::move(reference);
+}
+
+void Driver::setBooleanArrayReference(const std::string &name, std::shared_ptr<std::vector<bool>> reference) {
+  verifyVariableType(name, BOOLEAN_ARRAY);
+  boolean_arrays_[name] = std::move(reference);
 }

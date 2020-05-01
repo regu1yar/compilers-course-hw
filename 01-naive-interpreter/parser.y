@@ -79,6 +79,7 @@
     VOID "void"
     MAIN "main"
     SOUT "System.out.println"
+    NEW "new"
 ;
 
 %token <std::string> IDENTIFIER "identifier"
@@ -88,7 +89,6 @@
 
 %nterm <int> int_expr
 %nterm <bool> boolean_expr
-%nterm <std::string> lvalue
 %nterm <bool> boolean_value
 
 %printer { yyo << $$; } <*>;
@@ -125,8 +125,14 @@ statement:
   }
 	| local_variable_declaration {}
 	| "System.out.println" "(" int_expr ")" ";"  { std::cout << $3 << std::endl; }
-	| "System.out.println" "(" boolean_expr ")" ";"  { std::cout << $3 << std::endl; }
-	| lvalue "=" int_expr ";" {
+	| "System.out.println" "(" boolean_expr ")" ";"  {
+		if ($3) {
+			std::cout << "true" << std::endl;
+		} else {
+			std::cout << "false" << std::endl;
+		}
+	}
+	| "identifier" "=" int_expr ";" {
 		try {
 			driver.setIntVariableValue($1, $3);
 		} catch (const std::exception& e) {
@@ -137,49 +143,94 @@ statement:
       ));
 		}
 	}
-	| lvalue "=" boolean_expr ";" {
-  		try {
-        driver.setBooleanVariableValue($1, $3);
-      } catch (const std::exception& e) {
-        driver.addCompilationError(CompilationError(
-          driver.getParserLocation().begin.line,
-          driver.getParserLocation().begin.column,
-          e.what()
-        ));
-      }
-  	};
+	| "identifier" "=" boolean_expr ";" {
+    try {
+      driver.setBooleanVariableValue($1, $3);
+    } catch (const std::exception& e) {
+      driver.addCompilationError(CompilationError(
+        driver.getParserLocation().begin.line,
+        driver.getParserLocation().begin.column,
+        e.what()
+      ));
+    }
+  }
+  | "identifier" "[" int_expr "]" "=" int_expr ";" {
+		try {
+      driver.setIntArrayElementValue($1, $3, $6);
+    } catch (const std::exception& e) {
+      driver.addCompilationError(CompilationError(
+        driver.getParserLocation().begin.line,
+        driver.getParserLocation().begin.column,
+        e.what()
+      ));
+    }
+  }
+  | "identifier" "[" int_expr "]" "=" boolean_expr ";" {
+		try {
+      driver.setBooleanArrayElementValue($1, $3, $6);
+    } catch (const std::exception& e) {
+      driver.addCompilationError(CompilationError(
+        driver.getParserLocation().begin.line,
+        driver.getParserLocation().begin.column,
+        e.what()
+      ));
+    }
+  }
+  | "identifier" "=" "new" "int" "[" int_expr "]" ";" {
+    try {
+      driver.allocateMemoryForIntArray($1, $6);
+    } catch (const std::exception& e) {
+      driver.addCompilationError(CompilationError(
+        driver.getParserLocation().begin.line,
+        driver.getParserLocation().begin.column,
+        e.what()
+      ));
+    }
+  }
+  | "identifier" "=" "new" "boolean" "[" int_expr "]" ";" {
+    try {
+      driver.allocateMemoryForBooleanArray($1, $6);
+    } catch (const std::exception& e) {
+      driver.addCompilationError(CompilationError(
+        driver.getParserLocation().begin.line,
+        driver.getParserLocation().begin.column,
+        e.what()
+      ));
+    }
+  };
 
 //expr:
-//	int_expr { $$ = $1; }
-//	| boolean_expr { $$ = $1; };
-//  <expr> "[" <expr> "]"  |
 //  <expr> "." length  |
-//  new <simple type> "[" <expr> "]"  |
 //  new <type identifier> "(" ")"  |
-//  "!" <expr>  |
-//  "(" <expr> ")"  |
-//  <identifier>  | <integer literal>  |
-//  this  | true  | false  |
+//  this  |
 //  <method invocation>
 
 local_variable_declaration: variable_declaration {};
 
-lvalue:
-	"identifier";
-//	| <identifier> "[" <expr> "]"
-
 %left "||";
 %left "&&";
+%left NEGATION;
 %left "<" "==" ">";
 %left "+" "-";
 %left "*" "/" "%";
+%left UNMINUS;
 
 int_expr:
 	"int_value"
-	| "-" "int_value" { $$ = - $2; }
 	| "identifier" {
 		try {
       $$ = driver.getIntVariableValue($1);
+    } catch (const std::exception& e) {
+      driver.addCompilationError(CompilationError(
+        driver.getParserLocation().begin.line,
+        driver.getParserLocation().begin.column,
+        e.what()
+      ));
+    }
+	}
+	| "identifier" "[" int_expr "]" {
+		try {
+      $$ = driver.getIntArrayElementValue($1, $3);
     } catch (const std::exception& e) {
       driver.addCompilationError(CompilationError(
         driver.getParserLocation().begin.line,
@@ -193,6 +244,7 @@ int_expr:
   | int_expr "*" int_expr { $$ = $1 * $3; }
   | int_expr "/" int_expr { $$ = $1 / $3; }
   | int_expr "%" int_expr { $$ = $1 % $3; }
+  | "-" int_expr %prec UNMINUS { $$ = - $2; }
   | "(" int_expr ")" { $$ = $2; };
 
 boolean_expr:
@@ -208,8 +260,20 @@ boolean_expr:
       ));
     }
 	}
+	| "identifier" "[" int_expr "]" {
+		try {
+      $$ = driver.getBooleanArrayElementValue($1, $3);
+    } catch (const std::exception& e) {
+      driver.addCompilationError(CompilationError(
+        driver.getParserLocation().begin.line,
+        driver.getParserLocation().begin.column,
+        e.what()
+      ));
+    }
+	}
 	| boolean_expr "&&" boolean_expr { $$ = $1 && $3; }
   | boolean_expr "||" boolean_expr { $$ = $1 || $3; }
+  | "!" boolean_expr %prec NEGATION { $$ = !$2; }
   | int_expr "<" int_expr { $$ = $1 < $3; }
   | int_expr ">" int_expr { $$ = $1 > $3; }
   | int_expr "==" int_expr { $$ = $1 == $3; }
@@ -230,6 +294,28 @@ variable_declaration:
 	| "boolean" "identifier" ";" {
     try {
       driver.declareBooleanVariable($2);
+    } catch (const std::exception& e) {
+      driver.addCompilationError(CompilationError(
+        driver.getParserLocation().begin.line,
+        driver.getParserLocation().begin.column,
+        e.what()
+      ));
+    }
+  }
+  | "int" "[" "]" "identifier" ";" {
+    try {
+      driver.declareIntArray($4);
+    } catch (const std::exception& e) {
+      driver.addCompilationError(CompilationError(
+        driver.getParserLocation().begin.line,
+        driver.getParserLocation().begin.column,
+        e.what()
+      ));
+    }
+  }
+  | "boolean" "[" "]" "identifier" ";" {
+    try {
+      driver.declareBooleanArray($4);
     } catch (const std::exception& e) {
       driver.addCompilationError(CompilationError(
         driver.getParserLocation().begin.line,

@@ -1,7 +1,8 @@
 class Example {
     public static void main() {
-        int intVar;
-        intVar = 0;
-        System.out.println(intVar);
+        int[] intArr;
+        intArr = new int[10];
+        intArr[2] = -(42 - 22);
+        System.out.println(intArr[2]);
     }
 }

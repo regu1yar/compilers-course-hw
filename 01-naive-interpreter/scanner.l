@@ -78,6 +78,7 @@ blank [ \t\r]
 "void"                      return yy::parser::make_VOID          (loc);
 "main"                      return yy::parser::make_MAIN          (loc);
 "System.out.println"        return yy::parser::make_SOUT          (loc);
+"new"                       return yy::parser::make_NEW           (loc);
 
 "true"                      return yy::parser::make_TRUE(true, loc);
 "false"                     return yy::parser::make_FALSE(false, loc);
