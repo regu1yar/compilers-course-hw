@@ -20,6 +20,7 @@ class Driver {
   int Parse(const std::string& f);
 
   const yy::location& getParserLocation() const;
+  yy::location getParserLocation();
 
   void initRuntimeError(const RuntimeError& error);
   void addCompilationError(const CompilationError& error);

@@ -106,8 +106,8 @@ program: main_class { };
 main_class: "class" "identifier" "{" "public" "static" "void" "main" "(" ")" "{" statements "}" "}"  { };
 
 statements:
-	%empty {}
-	| statement statements {};
+	%empty { }
+	| statements statement { };
 
 statement:
 	"assert" "(" expr ")" ";" { }

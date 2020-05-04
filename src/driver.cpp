@@ -205,3 +205,7 @@ void Driver::setBooleanArrayReference(const std::string &name, std::shared_ptr<s
   verifyVariableType(name, BOOLEAN_ARRAY);
   boolean_arrays_[name] = std::move(reference);
 }
+
+yy::location Driver::getParserLocation() {
+  return location_;
+}
