@@ -33,4 +33,4 @@ set(CMAKE_CXX_STANDARD 14)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${compilers_SOURCE_DIR}/bin)
 
-add_subdirectory(01-naive-interpreter)
+add_subdirectory(src)

@@ -79,6 +79,7 @@ blank [ \t\r]
 "main"                      return yy::parser::make_MAIN          (loc);
 "System.out.println"        return yy::parser::make_SOUT          (loc);
 "new"                       return yy::parser::make_NEW           (loc);
+"length"                    return yy::parser::make_LENGTH        (loc);
 
 "true"                      return yy::parser::make_TRUE(true, loc);
 "false"                     return yy::parser::make_FALSE(false, loc);

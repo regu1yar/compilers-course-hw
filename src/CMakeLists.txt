@@ -1,4 +1,4 @@
-project(naive-interpreter)
+project(mini-java-compiler)
 set(
   HEADERS
   ${CMAKE_CURRENT_SOURCE_DIR}/driver.hh
@@ -25,13 +25,13 @@ FLEX_TARGET(
 ADD_FLEX_BISON_DEPENDENCY(MyScanner MyParser)
 
 add_executable(
-  naive-interpreter
+  mini-java-compiler
   main.cpp
   driver.cpp
   ${BISON_MyParser_OUTPUTS}
   ${FLEX_MyScanner_OUTPUTS}
 )
-target_include_directories(naive-interpreter
+target_include_directories(mini-java-compiler
   PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/interpreter_errors
