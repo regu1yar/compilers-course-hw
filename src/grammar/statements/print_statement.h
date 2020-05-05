@@ -9,8 +9,8 @@ class PrintStatement : public Statement {
 
   explicit PrintStatement(Expression* expression);
 
- private:
-  Expression* expression_
+ public:
+  Expression* expression;
 };
 
 

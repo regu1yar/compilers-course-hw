@@ -97,6 +97,7 @@
 %nterm <Expression*> expr
 %nterm <VariableDeclaration*> variable_declaration
 %nterm <Assignment*> assignment
+%nterm <ConditionClause*> condition_clause
 
 %%
 
@@ -158,6 +159,10 @@ variable_declaration:
 	| "boolean" "identifier" ";" { }
   | "int" "[" "]" "identifier" ";" { }
   | "boolean" "[" "]" "identifier" ";" { };
+
+condition_clause:
+	"if" "(" expr ")" statement { }
+	| "if" "(" expr ")" statement "else" statement { }
 
 assignment:
 	"identifier" "=" expr ";" { }

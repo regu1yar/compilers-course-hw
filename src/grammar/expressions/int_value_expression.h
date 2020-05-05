@@ -10,14 +10,7 @@ class IntValueExpression : public Expression {
 
   virtual ~IntValueExpression();
 
-  virtual ExpressionType getType();
-
-  virtual int evaluateInt() const;
-  virtual bool evaluateBoolean() const;
-
- private:
-  int value_;
-  yy::location location_;
+ public:
+  int value;
+  yy::location location;
 };
-
-

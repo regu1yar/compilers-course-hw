@@ -9,8 +9,8 @@ class VariableDeclarationStatement : public Statement {
 
   explicit VariableDeclarationStatement(VariableDeclaration* variable_declaration);
 
- private:
-  VariableDeclaration* variable_declaration_;
+ public:
+  VariableDeclaration* variable_declaration;
 };
 
 

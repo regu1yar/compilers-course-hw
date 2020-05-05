@@ -16,7 +16,16 @@ set(
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/variable_declarations/variable_declaration.h
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/assignments/assignment.h
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/assert_statement.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/expression_types.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/assignment_statement.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/condition_clause_statement.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/print_statement.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/scope_statement.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/variable_declaration_statement.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/while_cycle_statement.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/int_value_expression.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/boolean_value_expression.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/identifier_expression.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/array_element_expression.h
 )
 
 set(
@@ -25,10 +34,18 @@ set(
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/main_class.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/program.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statement_list.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/variable_declarations/variable_declaration.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/assignments/assignment.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/assert_statement.cpp
-)
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/assignment_statement.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/condition_clause_statement.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/print_statement.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/scope_statement.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/variable_declaration_statement.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/while_cycle_statement.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/int_value_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/boolean_value_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/identifier_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/array_element_expression.cpp
+  grammar/expressions/plus_expression.cpp grammar/expressions/plus_expression.h grammar/expressions/minus_expression.cpp grammar/expressions/minus_expression.h grammar/expressions/star_expression.cpp grammar/expressions/star_expression.h grammar/expressions/slash_expression.cpp grammar/expressions/slash_expression.h grammar/expressions/percent_expression.cpp grammar/expressions/percent_expression.h grammar/expressions/unary_minus_expression.cpp grammar/expressions/unary_minus_expression.h grammar/expressions/parentheses_expression.cpp grammar/expressions/parentheses_expression.h grammar/expressions/and_expression.cpp grammar/expressions/and_expression.h grammar/expressions/or_expression.cpp grammar/expressions/or_expression.h grammar/expressions/negation_expression.cpp grammar/expressions/negation_expression.h grammar/expressions/less_expression.cpp grammar/expressions/less_expression.h grammar/expressions/greater_expression.cpp grammar/expressions/greater_expression.h grammar/expressions/equals_expression.cpp grammar/expressions/equals_expression.h grammar/expressions/length_expression.cpp grammar/expressions/length_expression.h grammar/expressions/int_array_allocation_expression.cpp grammar/expressions/int_array_allocation_expression.h grammar/expressions/boolean_array_allocation_expression.cpp grammar/expressions/boolean_array_allocation_expression.h grammar/variable_declarations/int_variable_declaration.cpp grammar/variable_declarations/int_variable_declaration.h grammar/variable_declarations/boolean_variable_declaration.cpp grammar/variable_declarations/boolean_variable_declaration.h grammar/variable_declarations/int_array_declaration.cpp grammar/variable_declarations/int_array_declaration.h grammar/variable_declarations/boolean_array_declaration.cpp grammar/variable_declarations/boolean_array_declaration.h grammar/condition_clauses/if_clause.cpp grammar/condition_clauses/if_clause.h grammar/condition_clauses/if_else_clause.cpp grammar/condition_clauses/if_else_clause.h grammar/assignments/variable_assignment.cpp grammar/assignments/variable_assignment.h grammar/assignments/array_element_assignment.cpp grammar/assignments/array_element_assignment.h)
 
 find_package(BISON)
 find_package(FLEX)

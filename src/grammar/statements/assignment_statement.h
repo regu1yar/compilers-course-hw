@@ -9,8 +9,8 @@ class AssignmentStatement : public Statement {
 
   explicit AssignmentStatement(Assignment* assignment);
 
- private:
-  Assignment* assignment_;
+ public:
+  Assignment* assignment;
 };
 
 

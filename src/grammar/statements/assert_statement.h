@@ -11,9 +11,9 @@ class AssertStatement : public Statement {
 
   AssertStatement(Expression* expression, const yy::location& location);
 
- private:
-  Expression* expression_;
-  yy::location location_;
+ public:
+  Expression* expression;
+  yy::location location;
 };
 
 

@@ -9,9 +9,10 @@ class WhileCycleStatement : public Statement {
 
   WhileCycleStatement(Expression* condition, Statement* cycle_body);
 
- private:
-  Expression* condition_;
-  Statement* cycle_body_;
+ public:
+  Expression* condition;
+  Statement* cycle_body
+  ;
 };
 
 

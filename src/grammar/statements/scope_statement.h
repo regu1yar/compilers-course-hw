@@ -9,8 +9,8 @@ class ScopeStatement : public Statement {
 
   explicit ScopeStatement(StatementList* statements);
 
- private:
-  StatementList* statements_;
+ public:
+  StatementList* statements;
 };
 
 

@@ -1,9 +1,8 @@
 #pragma once
 
-#include "expression_types.h"
-
 class Expression {
-
+ public:
+  virtual ~Expression() = 0;
 };
 
 

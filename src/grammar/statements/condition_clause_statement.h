@@ -9,8 +9,8 @@ class ConditionClauseStatement : public Statement {
 
   explicit ConditionClauseStatement(ConditionClause* condition_clause);
 
- private:
-  ConditionClause* condition_clause_;
+ public:
+  ConditionClause* condition_clause;
 };
 
 
