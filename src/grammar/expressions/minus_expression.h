@@ -8,7 +8,9 @@ class MinusExpression : public Expression {
  public:
   MinusExpression(Expression* first_operand, Expression* second_operand, const yy::location& location);
 
-  virtual ~MinusExpression();
+  ~MinusExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* first_operand;

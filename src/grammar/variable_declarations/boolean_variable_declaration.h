@@ -10,7 +10,7 @@ class BooleanVariableDeclaration : public VariableDeclaration {
  public:
   BooleanVariableDeclaration(std::string identifier, const yy::location& location);
 
-  virtual ~BooleanVariableDeclaration();
+  ~BooleanVariableDeclaration() override = default;
 
  public:
   std::string identifier;

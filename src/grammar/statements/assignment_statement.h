@@ -5,9 +5,11 @@
 
 class AssignmentStatement : public Statement {
  public:
-  virtual ~AssignmentStatement();
-
   explicit AssignmentStatement(Assignment* assignment);
+
+  ~AssignmentStatement() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Assignment* assignment;

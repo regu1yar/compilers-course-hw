@@ -8,7 +8,9 @@ class IfElseClause : public ConditionClause {
  public:
   IfElseClause(Expression* condition, Statement* if_body, Statement* else_body);
 
-  virtual ~IfElseClause();
+  ~IfElseClause() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* condition;

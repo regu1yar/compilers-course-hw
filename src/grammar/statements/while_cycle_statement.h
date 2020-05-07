@@ -5,9 +5,11 @@
 
 class WhileCycleStatement : public Statement {
  public:
-  virtual ~WhileCycleStatement();
-
   WhileCycleStatement(Expression* condition, Statement* cycle_body);
+
+  ~WhileCycleStatement() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* condition;

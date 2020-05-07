@@ -2,6 +2,15 @@
 
 IfClause::IfClause(Expression *condition, Statement *body)
     : condition(condition)
-    , body{body) {
+    , body(body) {
 
+}
+
+IfClause::~IfClause() {
+  delete condition;
+  delete body;
+}
+
+void IfClause::accept(Visitor *visitor) {
+  visitor->visit(this);
 }

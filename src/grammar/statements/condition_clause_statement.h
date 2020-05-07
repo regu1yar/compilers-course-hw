@@ -5,9 +5,11 @@
 
 class ConditionClauseStatement : public Statement {
  public:
-  virtual ~ConditionClauseStatement();
-
   explicit ConditionClauseStatement(ConditionClause* condition_clause);
+
+  ~ConditionClauseStatement() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   ConditionClause* condition_clause;

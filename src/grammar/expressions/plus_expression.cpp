@@ -9,3 +9,12 @@ PlusExpression::PlusExpression(
         location(location) {
 
 }
+
+PlusExpression::~PlusExpression() {
+  delete first_operand;
+  delete second_operand;
+}
+
+void PlusExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

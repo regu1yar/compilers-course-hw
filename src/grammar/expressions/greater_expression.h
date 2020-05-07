@@ -8,7 +8,9 @@ class GreaterExpression : public Expression {
  public:
   GreaterExpression(Expression* first_operand, Expression* second_operand, const yy::location& location);
 
-  virtual ~GreaterExpression();
+  ~GreaterExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* first_operand;

@@ -8,7 +8,9 @@ class UnaryMinusExpression : public Expression {
  public:
   UnaryMinusExpression(Expression* operand, const yy::location& location);
 
-  ~UnaryMinusExpression();
+  ~UnaryMinusExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* operand;

@@ -102,22 +102,27 @@
 %%
 
 %start program;
-program: main_class { };
+program: main_class { $$ = new Program($1); };
 
-main_class: "class" "identifier" "{" "public" "static" "void" "main" "(" ")" "{" statements "}" "}"  { };
+main_class: "class" "identifier" "{" "public" "static" "void" "main" "(" ")" "{" statements "}" "}"  {
+	$$ = new MainClass($2, $11);
+};
 
 statements:
-	%empty { }
-	| statements statement { };
+	%empty { $$ = new StatementList(); }
+	| statements statement {
+		$1->pushBack($2);
+		$$ = $1;
+	};
 
 statement:
-	"assert" "(" expr ")" ";" { }
-	| variable_declaration { }
-	| "{" statements "}" { }
-	| condition_clause { }
-	| "while" "(" expr ")" statement
-	| "System.out.println" "(" expr ")" ";"  { }
-  | assignment { };
+	"assert" "(" expr ")" ";" { $$ = new AssertStatement($3); }
+	| variable_declaration { $$ = new VariableDeclarationStatement($1); }
+	| "{" statements "}" { $$ = new ScopeStatement($2); }
+	| condition_clause { $$ = new ConditionClauseStatement($1); }
+	| "while" "(" expr ")" statement { $$ = new WhileCycleStatement($3, $5); }
+	| "System.out.println" "(" expr ")" ";"  { $$ = new PrintStatement($3); }
+  | assignment { $$ = new AssignmentStatement($1); };
 //	| "return" expr ";" { }
 //	| method_invocation ";" { };
 
@@ -130,43 +135,43 @@ statement:
 %left UNMINUS;
 
 expr:
-	"int_value" { }
-	| boolean_value { }
-	| "identifier" { }
-	| "identifier" "[" expr "]" { }
-	| expr "+" expr { }
-  | expr "-" expr { }
-  | expr "*" expr { }
-  | expr "/" expr { }
-  | expr "%" expr { }
-  | "-" expr %prec UNMINUS { }
-  | "(" expr ")" { }
-  | expr "&&" expr { }
-  | expr "||" expr { }
-  | "!" expr %prec NEGATION { }
-  | expr "<" expr { }
-  | expr ">" expr { }
-  | expr "==" expr { }
-  | expr "." "length" { }
-  | "new" "int" "[" expr "]" ";" { };
-  | "new" "boolean" "[" expr "]" ";" { };
+	"int_value" { $$ = new IntValueExpression($1); }
+	| boolean_value { $$ = new BooleanValueExpression($1); }
+	| "identifier" { $$ = new IdentifierExpression($1); }
+	| "identifier" "[" expr "]" { $$ = new ArrayElementExpression($1, $3); }
+	| expr "+" expr { $$ = new PlusExpression($1, $3); }
+  | expr "-" expr { $$ = new MinusExpression($1, $3); }
+  | expr "*" expr { $$ = new StarExpression($1, $3); }
+  | expr "/" expr { $$ = new SlashExpression($1, $3); }
+  | expr "%" expr { $$ = new PercentExpression($1, $3); }
+  | "-" expr %prec UNMINUS { $$ = new UnaryMinusExpression($2); }
+  | "(" expr ")" { $$ = new ParanthesesExpression($2); }
+  | expr "&&" expr { $$ = new AndExpression($1, $3); }
+  | expr "||" expr { $$ = new OrExpression($1, $3); }
+  | "!" expr %prec NEGATION { $$ = new NegationExpression($2); }
+  | expr "<" expr { $$ = new LessExpression($1, $3); }
+  | expr ">" expr { $$ = new GreaterExpression($1, $3); }
+  | expr "==" expr { $$ = EqualsExpression($1, $3); }
+  | expr "." "length" { $$ = new LengthExpression($1); }
+  | "new" "int" "[" expr "]" ";" { $$ = new IntArrayAllocationExpression($4); }
+  | "new" "boolean" "[" expr "]" ";" { $$ = new BooleanArrayAllocationExpression($4); };
 //  | new "identifier" "(" ")" { }
 //	| "this" { }
 //  | method_invocation { };
 
 variable_declaration:
-	"int" "identifier" ";" { }
-	| "boolean" "identifier" ";" { }
-  | "int" "[" "]" "identifier" ";" { }
-  | "boolean" "[" "]" "identifier" ";" { };
+	"int" "identifier" ";" { $$ = new IntVariableDeclaration($2); }
+	| "boolean" "identifier" ";" { $$ = new BooleanVariableDeclaration($2); }
+  | "int" "[" "]" "identifier" ";" { $$ = new IntArrayDeclaration($4); }
+  | "boolean" "[" "]" "identifier" ";" { $$ = new BooleanArrayDeclaration($4); };
 
 condition_clause:
-	"if" "(" expr ")" statement { }
-	| "if" "(" expr ")" statement "else" statement { }
+	"if" "(" expr ")" statement { $$ = new IfClause($3, $5); }
+	| "if" "(" expr ")" statement "else" statement { $$ = new IfElseClause($3, $5, $7); }
 
 assignment:
-	"identifier" "=" expr ";" { }
-  | "identifier" "[" expr "]" "=" expr ";" { };
+	"identifier" "=" expr ";" { $$ = new VariableAssignment($1, $3); }
+  | "identifier" "[" expr "]" "=" expr ";" { $$ = new ArrayElementAssignment($1, $3, $6); };
 
 boolean_value: "true" | "false";
 

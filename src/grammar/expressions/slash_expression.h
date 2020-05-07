@@ -8,7 +8,9 @@ class SlashExpression : public Expression {
  public:
   SlashExpression(Expression* first_operand, Expression* second_operand, const yy::location& location);
 
-  virtual ~SlashExpression();
+  ~SlashExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* first_operand;

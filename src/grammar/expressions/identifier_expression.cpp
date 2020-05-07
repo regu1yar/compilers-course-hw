@@ -7,3 +7,11 @@ IdentifierExpression::IdentifierExpression(std::string identifier, const yy::loc
     , location(location) {
 
 }
+
+IdentifierExpression::~IdentifierExpression() {
+
+}
+
+void IdentifierExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

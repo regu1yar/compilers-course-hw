@@ -11,3 +11,12 @@ ArrayElementAssignment::ArrayElementAssignment(
         value(value) {
 
 }
+
+ArrayElementAssignment::~ArrayElementAssignment() {
+  delete element_index;
+  delete value;
+}
+
+void ArrayElementAssignment::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

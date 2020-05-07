@@ -8,7 +8,9 @@ class LessExpression : public Expression {
  public:
   LessExpression(Expression* first_operand, Expression* second_operand, const yy::location& location);
 
-  virtual ~LessExpression();
+  ~LessExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* first_operand;

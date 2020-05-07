@@ -7,3 +7,11 @@ VariableAssignment::VariableAssignment(std::string identifier, Expression* value
     , value(value) {
 
 }
+
+VariableAssignment::~VariableAssignment() {
+  delete value;
+}
+
+void VariableAssignment::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

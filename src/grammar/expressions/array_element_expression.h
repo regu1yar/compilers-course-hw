@@ -10,7 +10,9 @@ class ArrayElementExpression : public Expression {
  public:
   ArrayElementExpression(std::string identifier, Expression* index_expression, const yy::location& location);
 
-  virtual ~ArrayElementExpression();
+  ~ArrayElementExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   std::string identifier;

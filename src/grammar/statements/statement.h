@@ -1,6 +1,8 @@
 #pragma once
 
-class Statement {
+#include "base_tree_element.h"
+
+class Statement : public BaseTreeElement {
  public:
-  virtual ~Statement() = 0;
+  ~Statement() override = 0;
 };

@@ -5,9 +5,11 @@
 
 class ScopeStatement : public Statement {
  public:
-  virtual ~ScopeStatement();
-
   explicit ScopeStatement(StatementList* statements);
+
+  ~ScopeStatement() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   StatementList* statements;

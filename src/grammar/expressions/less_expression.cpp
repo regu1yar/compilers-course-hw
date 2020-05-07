@@ -9,3 +9,12 @@ LessExpression::LessExpression(
     location(location) {
 
 }
+
+LessExpression::~LessExpression() {
+  delete first_operand;
+  delete second_operand;
+}
+
+void LessExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

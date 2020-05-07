@@ -9,7 +9,9 @@ class ArrayElementAssignment : public Assignment {
  public:
   ArrayElementAssignment(std::string identifier, Expression* element_index, Expression* value);
 
-  virtual ~ArrayElementAssignment();
+  ~ArrayElementAssignment() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   std::string identifier;

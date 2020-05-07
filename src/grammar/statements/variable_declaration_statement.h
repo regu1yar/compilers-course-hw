@@ -5,9 +5,11 @@
 
 class VariableDeclarationStatement : public Statement {
  public:
-  virtual ~VariableDeclarationStatement();
-
   explicit VariableDeclarationStatement(VariableDeclaration* variable_declaration);
+
+  ~VariableDeclarationStatement() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   VariableDeclaration* variable_declaration;

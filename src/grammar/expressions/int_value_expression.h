@@ -8,7 +8,9 @@ class IntValueExpression : public Expression {
  public:
   IntValueExpression(int value, const yy::location& location);
 
-  virtual ~IntValueExpression();
+  ~IntValueExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   int value;

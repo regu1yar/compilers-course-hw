@@ -10,7 +10,7 @@ class IntVariableDeclaration : public VariableDeclaration {
  public:
   IntVariableDeclaration(std::string identifier, const yy::location& location);
 
-  virtual ~IntVariableDeclaration();
+  ~IntVariableDeclaration() override = default;
 
  public:
   std::string identifier;

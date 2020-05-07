@@ -10,7 +10,9 @@ class IdentifierExpression : public Expression {
  public:
   IdentifierExpression(std::string identifier, const yy::location& location);
 
-  virtual ~IdentifierExpression();
+  ~IdentifierExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   std::string identifier;

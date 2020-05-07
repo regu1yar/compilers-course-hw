@@ -9,3 +9,12 @@ StarExpression::StarExpression(
     location(location) {
 
 }
+
+StarExpression::~StarExpression() {
+  delete first_operand;
+  delete second_operand;
+}
+
+void StarExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

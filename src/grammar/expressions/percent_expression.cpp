@@ -9,3 +9,12 @@ PercentExpression::PercentExpression(
     location(location) {
 
 }
+
+PercentExpression::~PercentExpression() {
+  delete first_operand;
+  delete second_operand;
+}
+
+void PercentExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

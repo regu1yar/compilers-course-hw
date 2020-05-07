@@ -8,7 +8,9 @@ class OrExpression : public Expression {
  public:
   OrExpression(Expression* first_operand, Expression* second_operand, const yy::location& location);
 
-  virtual ~OrExpression();
+  ~OrExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* first_operand;

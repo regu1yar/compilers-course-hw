@@ -8,7 +8,9 @@ class LengthExpression : public Expression {
  public:
   LengthExpression(Expression* expression, const yy::location& location);
 
-  ~LengthExpression();
+  ~LengthExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* expression;

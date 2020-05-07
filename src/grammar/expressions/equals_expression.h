@@ -8,7 +8,9 @@ class EqualsExpression : public Expression {
  public:
   EqualsExpression(Expression* first_operand, Expression* second_operand, const yy::location& location);
 
-  virtual ~EqualsExpression();
+  ~EqualsExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* first_operand;

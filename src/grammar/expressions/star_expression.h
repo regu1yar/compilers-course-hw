@@ -8,7 +8,9 @@ class StarExpression : public Expression {
  public:
   StarExpression(Expression* first_operand, Expression* second_operand, const yy::location& location);
 
-  virtual ~StarExpression();
+  ~StarExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* first_operand;

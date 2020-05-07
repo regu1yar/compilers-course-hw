@@ -5,3 +5,11 @@ BooleanArrayAllocationExpression::BooleanArrayAllocationExpression(Expression *e
     , location(location) {
 
 }
+
+BooleanArrayAllocationExpression::~BooleanArrayAllocationExpression() {
+  delete array_size;
+}
+
+void BooleanArrayAllocationExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

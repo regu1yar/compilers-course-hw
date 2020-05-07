@@ -9,3 +9,12 @@ MinusExpression::MinusExpression(
         location(location) {
 
 }
+
+MinusExpression::~MinusExpression() {
+  delete first_operand;
+  delete second_operand;
+}
+
+void MinusExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

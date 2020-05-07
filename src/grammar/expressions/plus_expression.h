@@ -8,7 +8,9 @@ class PlusExpression : public Expression {
  public:
   PlusExpression(Expression* first_operand, Expression* second_operand, const yy::location& location);
 
-  virtual ~PlusExpression();
+  ~PlusExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* first_operand;

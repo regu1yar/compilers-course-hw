@@ -7,9 +7,11 @@
 
 class AssertStatement : public Statement {
  public:
-  virtual ~AssertStatement();
-
   AssertStatement(Expression* expression, const yy::location& location);
+
+  ~AssertStatement() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* expression;

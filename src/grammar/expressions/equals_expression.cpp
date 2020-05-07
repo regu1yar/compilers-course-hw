@@ -9,3 +9,12 @@ EqualsExpression::EqualsExpression(
     location(location) {
 
 }
+
+EqualsExpression::~EqualsExpression() {
+  delete first_operand;
+  delete second_operand;
+}
+
+void EqualsExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

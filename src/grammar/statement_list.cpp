@@ -1,9 +1,13 @@
 #include "statement_list.h"
 
 void StatementList::pushBack(Statement *statement) {
-  statements_.push_back(statement);
+  statements.push_back(statement);
 }
 
 void StatementList::pushFront(Statement *statement) {
-  statements_.push_front(statement);
+  statements.push_front(statement);
+}
+
+void StatementList::accept(Visitor *visitor) {
+  visitor->visit(this);
 }

@@ -8,7 +8,9 @@ class BooleanArrayAllocationExpression : public Expression {
  public:
   BooleanArrayAllocationExpression(Expression* expression, const yy::location& location);
 
-  virtual ~BooleanArrayAllocationExpression();
+  ~BooleanArrayAllocationExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* array_size;

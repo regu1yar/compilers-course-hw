@@ -1,6 +1,8 @@
 #pragma once
 
-class VariableDeclaration {
+#include "base_tree_element.h"
+
+class VariableDeclaration : public BaseTreeElement {
  public:
-  virtual ~VariableDeclaration() = 0;
+  ~VariableDeclaration() override = 0;
 };

@@ -8,7 +8,9 @@ class NegationExpression : public Expression {
  public:
   NegationExpression(Expression* operand, const yy::location& location);
 
-  ~NegationExpression();
+  ~NegationExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* operand;

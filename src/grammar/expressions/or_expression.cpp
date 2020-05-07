@@ -9,3 +9,12 @@ OrExpression::OrExpression(
     location(location) {
 
 }
+
+OrExpression::~OrExpression() {
+  delete first_operand;
+  delete second_operand;
+}
+
+void OrExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

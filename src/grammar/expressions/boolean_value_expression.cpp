@@ -5,3 +5,11 @@ BooleanValueExpression::BooleanValueExpression(bool value, const yy::location &l
     , location(location) {
 
 }
+
+BooleanValueExpression::~BooleanValueExpression() {
+
+}
+
+void BooleanValueExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

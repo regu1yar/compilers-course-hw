@@ -11,3 +11,11 @@ ArrayElementExpression::ArrayElementExpression(
         location(location) {
 
 }
+
+ArrayElementExpression::~ArrayElementExpression() {
+  delete index_expression;
+}
+
+void ArrayElementExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

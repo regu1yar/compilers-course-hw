@@ -10,7 +10,7 @@ class IntArrayDeclaration : public VariableDeclaration {
  public:
   IntArrayDeclaration(std::string identifier, const yy::location& location);
 
-  virtual ~IntArrayDeclaration();
+  ~IntArrayDeclaration() override = default;
 
  public:
   std::string identifier;

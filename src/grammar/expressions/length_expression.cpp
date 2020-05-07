@@ -5,3 +5,11 @@ LengthExpression::LengthExpression(Expression *expression, const yy::location &l
     , location(location) {
 
 }
+
+LengthExpression::~LengthExpression() {
+  delete expression;
+}
+
+void LengthExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

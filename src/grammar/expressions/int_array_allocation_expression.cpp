@@ -5,3 +5,11 @@ IntArrayAllocationExpression::IntArrayAllocationExpression(Expression *expressio
     , location(location) {
 
 }
+
+IntArrayAllocationExpression::~IntArrayAllocationExpression() {
+  delete array_size;
+}
+
+void IntArrayAllocationExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

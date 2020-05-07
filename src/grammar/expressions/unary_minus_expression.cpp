@@ -5,3 +5,11 @@ UnaryMinusExpression::UnaryMinusExpression(Expression *operand, const yy::locati
     , location(location) {
 
 }
+
+UnaryMinusExpression::~UnaryMinusExpression() {
+  delete operand;
+}
+
+void UnaryMinusExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

@@ -9,3 +9,12 @@ SlashExpression::SlashExpression(
     location(location) {
 
 }
+
+SlashExpression::~SlashExpression() {
+  delete first_operand;
+  delete second_operand;
+}
+
+void SlashExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

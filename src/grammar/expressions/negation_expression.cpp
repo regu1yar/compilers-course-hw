@@ -5,3 +5,11 @@ NegationExpression::NegationExpression(Expression *operand, const yy::location &
     , location(location) {
 
 }
+
+NegationExpression::~NegationExpression() {
+  delete operand;
+}
+
+void NegationExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

@@ -5,9 +5,11 @@
 
 class PrintStatement : public Statement {
  public:
-  virtual ~PrintStatement();
-
   explicit PrintStatement(Expression* expression);
+
+  ~PrintStatement() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* expression;

@@ -9,3 +9,12 @@ AndExpression::AndExpression(
     location(location) {
 
 }
+
+AndExpression::~AndExpression() {
+  delete first_operand;
+  delete second_operand;
+}
+
+void AndExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

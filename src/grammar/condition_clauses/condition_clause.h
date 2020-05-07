@@ -1,8 +1,10 @@
 #pragma once
 
-class ConditionClause {
+#include "base_tree_element.h"
+
+class ConditionClause : public BaseTreeElement {
  public:
-  virtual ~ConditionClause() = 0;
+  ~ConditionClause() override = 0;
 };
 
 

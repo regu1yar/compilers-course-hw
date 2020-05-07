@@ -8,7 +8,9 @@ class IfClause : public ConditionClause {
  public:
   IfClause(Expression* condition, Statement* body);
 
-  virtual ~IfClause();
+  ~IfClause() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   Expression* condition;

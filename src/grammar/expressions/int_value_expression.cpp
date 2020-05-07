@@ -6,3 +6,11 @@ IntValueExpression::IntValueExpression(int value, const yy::location &location)
     , location(location) {
 
 }
+
+IntValueExpression::~IntValueExpression() {
+
+}
+
+void IntValueExpression::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

@@ -9,7 +9,9 @@ class VariableAssignment : public Assignment {
  public:
   VariableAssignment(std::string identifier, Expression* value);
 
-  virtual ~VariableAssignment();
+  ~VariableAssignment() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   std::string identifier;

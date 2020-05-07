@@ -5,3 +5,11 @@ AssertStatement::AssertStatement(Expression *expression, const yy::location &loc
     , location(location) {
 
 }
+
+AssertStatement::~AssertStatement() {
+  delete expression;
+}
+
+void AssertStatement::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

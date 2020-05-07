@@ -1,8 +1,10 @@
 #pragma once
 
-class Expression {
+#include "base_tree_element.h"
+
+class Expression : public BaseTreeElement {
  public:
-  virtual ~Expression() = 0;
+  ~Expression() override = 0;
 };
 
 

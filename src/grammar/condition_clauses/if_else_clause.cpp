@@ -6,3 +6,13 @@ IfElseClause::IfElseClause(Expression *condition, Statement *if_body, Statement 
   , else_body(else_body) {
 
 }
+
+IfElseClause::~IfElseClause() {
+  delete condition;
+  delete if_body;
+  delete else_body;
+}
+
+void IfElseClause::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

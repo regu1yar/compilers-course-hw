@@ -1,8 +1,10 @@
 #pragma once
 
-class Assignment {
+#include "base_tree_element.h"
+
+class Assignment : public BaseTreeElement {
  public:
-  virtual ~Assignment() = 0;
+  ~Assignment() override = 0;
 };
 
 

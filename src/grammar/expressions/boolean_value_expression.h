@@ -8,7 +8,9 @@ class BooleanValueExpression : public Expression {
  public:
   BooleanValueExpression(bool value, const yy::location& location);
 
-  virtual ~BooleanValueExpression();
+  ~BooleanValueExpression() override;
+
+  void accept(Visitor* visitor) override;
 
  public:
   bool value;
