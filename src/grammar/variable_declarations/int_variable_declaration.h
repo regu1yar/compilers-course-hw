@@ -12,6 +12,8 @@ class IntVariableDeclaration : public VariableDeclaration {
 
   ~IntVariableDeclaration() override = default;
 
+  void accept(Visitor* visitor) override;
+
  public:
   std::string identifier;
   yy::location location;

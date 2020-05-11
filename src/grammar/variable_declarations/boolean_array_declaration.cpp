@@ -7,3 +7,7 @@ BooleanArrayDeclaration::BooleanArrayDeclaration(std::string identifier, const y
     , location(location) {
 
 }
+
+void BooleanArrayDeclaration::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

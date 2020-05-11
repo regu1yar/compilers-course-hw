@@ -7,3 +7,7 @@ BooleanVariableDeclaration::BooleanVariableDeclaration(std::string identifier, c
     , location(location) {
 
 }
+
+void BooleanVariableDeclaration::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

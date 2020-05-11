@@ -13,8 +13,5 @@ class WhileCycleStatement : public Statement {
 
  public:
   Expression* condition;
-  Statement* cycle_body
-  ;
+  Statement* cycle_body;
 };
-
-

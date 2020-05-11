@@ -50,5 +50,3 @@ class Visitor {
   virtual void visit(Program* program) = 0;
   virtual void visit(StatementList* statements) = 0;
 };
-
-

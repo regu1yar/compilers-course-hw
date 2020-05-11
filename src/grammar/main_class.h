@@ -7,7 +7,7 @@
 
 class MainClass : public BaseTreeElement {
  public:
-  MainClass(const std::string& class_name, StatementList* statements);
+  MainClass(std::string  class_name, StatementList* statements);
 
   ~MainClass() override;
 

@@ -12,6 +12,8 @@ class IntArrayDeclaration : public VariableDeclaration {
 
   ~IntArrayDeclaration() override = default;
 
+  void accept(Visitor* visitor) override;
+
  public:
   std::string identifier;
   yy::location location;

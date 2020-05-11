@@ -12,6 +12,8 @@ class BooleanArrayDeclaration : public VariableDeclaration {
 
   ~BooleanArrayDeclaration() override = default;
 
+  void accept(Visitor* visitor) override;
+
  public:
   std::string identifier;
   yy::location location;

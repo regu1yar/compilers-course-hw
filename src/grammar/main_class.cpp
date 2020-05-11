@@ -1,14 +1,14 @@
 #include "main_class.h"
 
-MainClass::MainClass(const std::string &class_name, StatementList *statements)
-    : class_name(class_name)
+#include <utility>
+
+MainClass::MainClass(std::string class_name, StatementList *statements)
+    : class_name(std::move(class_name))
     , statements(statements) {
 
 }
 
-MainClass::~MainClass() {
-
-}
+MainClass::~MainClass() = default;
 
 void MainClass::accept(Visitor *visitor) {
   visitor->visit(this);

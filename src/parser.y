@@ -14,6 +14,8 @@
 
     class Scanner;
     class Driver;
+
+    #include "forward_decl.h"
 }
 
 %define parse.trace
@@ -21,10 +23,9 @@
 
 %code {
     #include "driver.hh"
-    #include "runtime_error.h"
-    #include "compilation_error.h"
-    #include "exceptions.h"
     #include "location.hh"
+
+    #include "elements.h"
 
     static yy::parser::symbol_type yylex(Scanner &scanner, Driver& driver) {
         return scanner.ScanToken();
@@ -116,7 +117,7 @@ statements:
 	};
 
 statement:
-	"assert" "(" expr ")" ";" { $$ = new AssertStatement($3); }
+	"assert" "(" expr ")" ";" { $$ = new AssertStatement($3, driver.getParserLocation()); }
 	| variable_declaration { $$ = new VariableDeclarationStatement($1); }
 	| "{" statements "}" { $$ = new ScopeStatement($2); }
 	| condition_clause { $$ = new ConditionClauseStatement($1); }
@@ -135,35 +136,35 @@ statement:
 %left UNMINUS;
 
 expr:
-	"int_value" { $$ = new IntValueExpression($1); }
-	| boolean_value { $$ = new BooleanValueExpression($1); }
-	| "identifier" { $$ = new IdentifierExpression($1); }
-	| "identifier" "[" expr "]" { $$ = new ArrayElementExpression($1, $3); }
-	| expr "+" expr { $$ = new PlusExpression($1, $3); }
-  | expr "-" expr { $$ = new MinusExpression($1, $3); }
-  | expr "*" expr { $$ = new StarExpression($1, $3); }
-  | expr "/" expr { $$ = new SlashExpression($1, $3); }
-  | expr "%" expr { $$ = new PercentExpression($1, $3); }
-  | "-" expr %prec UNMINUS { $$ = new UnaryMinusExpression($2); }
-  | "(" expr ")" { $$ = new ParanthesesExpression($2); }
-  | expr "&&" expr { $$ = new AndExpression($1, $3); }
-  | expr "||" expr { $$ = new OrExpression($1, $3); }
-  | "!" expr %prec NEGATION { $$ = new NegationExpression($2); }
-  | expr "<" expr { $$ = new LessExpression($1, $3); }
-  | expr ">" expr { $$ = new GreaterExpression($1, $3); }
-  | expr "==" expr { $$ = EqualsExpression($1, $3); }
-  | expr "." "length" { $$ = new LengthExpression($1); }
-  | "new" "int" "[" expr "]" ";" { $$ = new IntArrayAllocationExpression($4); }
-  | "new" "boolean" "[" expr "]" ";" { $$ = new BooleanArrayAllocationExpression($4); };
+	"int_value" { $$ = new IntValueExpression($1, driver.getParserLocation()); }
+	| boolean_value { $$ = new BooleanValueExpression($1, driver.getParserLocation()); }
+	| "identifier" { $$ = new IdentifierExpression($1, driver.getParserLocation()); }
+	| "identifier" "[" expr "]" { $$ = new ArrayElementExpression($1, $3, driver.getParserLocation()); }
+	| expr "+" expr { $$ = new PlusExpression($1, $3, driver.getParserLocation()); }
+  | expr "-" expr { $$ = new MinusExpression($1, $3, driver.getParserLocation()); }
+  | expr "*" expr { $$ = new StarExpression($1, $3, driver.getParserLocation()); }
+  | expr "/" expr { $$ = new SlashExpression($1, $3, driver.getParserLocation()); }
+  | expr "%" expr { $$ = new PercentExpression($1, $3, driver.getParserLocation()); }
+  | "-" expr %prec UNMINUS { $$ = new UnaryMinusExpression($2, driver.getParserLocation()); }
+  | "(" expr ")" { $$ = new ParenthesesExpression($2); }
+  | expr "&&" expr { $$ = new AndExpression($1, $3, driver.getParserLocation()); }
+  | expr "||" expr { $$ = new OrExpression($1, $3, driver.getParserLocation()); }
+  | "!" expr %prec NEGATION { $$ = new NegationExpression($2, driver.getParserLocation()); }
+  | expr "<" expr { $$ = new LessExpression($1, $3, driver.getParserLocation()); }
+  | expr ">" expr { $$ = new GreaterExpression($1, $3, driver.getParserLocation()); }
+  | expr "==" expr { $$ = new EqualsExpression($1, $3, driver.getParserLocation()); }
+  | expr "." "length" { $$ = new LengthExpression($1, driver.getParserLocation()); }
+  | "new" "int" "[" expr "]" ";" { $$ = new IntArrayAllocationExpression($4, driver.getParserLocation()); }
+  | "new" "boolean" "[" expr "]" ";" { $$ = new BooleanArrayAllocationExpression($4, driver.getParserLocation()); };
 //  | new "identifier" "(" ")" { }
 //	| "this" { }
 //  | method_invocation { };
 
 variable_declaration:
-	"int" "identifier" ";" { $$ = new IntVariableDeclaration($2); }
-	| "boolean" "identifier" ";" { $$ = new BooleanVariableDeclaration($2); }
-  | "int" "[" "]" "identifier" ";" { $$ = new IntArrayDeclaration($4); }
-  | "boolean" "[" "]" "identifier" ";" { $$ = new BooleanArrayDeclaration($4); };
+	"int" "identifier" ";" { $$ = new IntVariableDeclaration($2, driver.getParserLocation()); }
+	| "boolean" "identifier" ";" { $$ = new BooleanVariableDeclaration($2, driver.getParserLocation()); }
+  | "int" "[" "]" "identifier" ";" { $$ = new IntArrayDeclaration($4, driver.getParserLocation()); }
+  | "boolean" "[" "]" "identifier" ";" { $$ = new BooleanArrayDeclaration($4, driver.getParserLocation()); };
 
 condition_clause:
 	"if" "(" expr ")" statement { $$ = new IfClause($3, $5); }

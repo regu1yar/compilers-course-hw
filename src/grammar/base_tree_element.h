@@ -8,5 +8,3 @@ class BaseTreeElement {
 
   virtual void accept(Visitor* visitor) = 0;
 };
-
-

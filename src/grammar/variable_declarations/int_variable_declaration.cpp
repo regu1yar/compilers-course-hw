@@ -7,3 +7,7 @@ IntVariableDeclaration::IntVariableDeclaration(std::string identifier, const yy:
     , location(location) {
 
 }
+
+void IntVariableDeclaration::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

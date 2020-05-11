@@ -7,3 +7,7 @@ IntArrayDeclaration::IntArrayDeclaration(std::string identifier, const yy::locat
     , location(location) {
 
 }
+
+void IntArrayDeclaration::accept(Visitor *visitor) {
+  visitor->visit(this);
+}

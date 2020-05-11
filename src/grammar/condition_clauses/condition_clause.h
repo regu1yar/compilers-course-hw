@@ -2,9 +2,7 @@
 
 #include "base_tree_element.h"
 
-class ConditionClause : public BaseTreeElement {
+class ConditionClause : public virtual BaseTreeElement {
  public:
   ~ConditionClause() override = 0;
 };
-
-

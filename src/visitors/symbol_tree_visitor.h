@@ -1,10 +1,11 @@
 #pragma once
 
 #include "visitor.h"
+#include "scope_layer.h"
 
-class Interpreter : public Visitor {
+class SymbolTreeVisitor : public Visitor {
  public:
-  ~Interpreter() override;
+  ~SymbolTreeVisitor() override;
 
   void visit(ArrayElementAssignment* assignment) override;
   void visit(VariableAssignment* assignment) override;
@@ -49,4 +50,9 @@ class Interpreter : public Visitor {
   void visit(MainClass* main_class) override;
   void visit(Program* program) override;
   void visit(StatementList* statements) override;
+
+ public:
+  ScopeLayer* current_layer_{nullptr};
 };
+
+
