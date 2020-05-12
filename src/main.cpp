@@ -23,7 +23,12 @@ int main(int argc, char** argv) {
   Driver driver(trace_parsing, trace_scanning);
   if (driver.Parse(input) != 0) {
     result = 1;
+    return result;
   }
+
+  driver.buildSymbolTree();
+  driver.runTypeCheck();
+  driver.interpret();
 
   return result;
 }

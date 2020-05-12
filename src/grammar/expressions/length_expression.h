@@ -14,5 +14,4 @@ class LengthExpression : public Expression {
 
  public:
   Expression* expression;
-  yy::location location;
 };

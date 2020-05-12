@@ -15,7 +15,6 @@ class PercentExpression : public Expression {
  public:
   Expression* first_operand;
   Expression* second_operand;
-  yy::location location;
 };
 
 

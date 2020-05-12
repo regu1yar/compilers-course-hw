@@ -17,7 +17,6 @@ class ArrayElementExpression : public Expression {
  public:
   std::string identifier;
   Expression* index_expression;
-  yy::location location;
 };
 
 

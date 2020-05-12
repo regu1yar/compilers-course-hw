@@ -14,5 +14,4 @@ class IntArrayAllocationExpression : public Expression {
 
  public:
   Expression* array_size;
-  yy::location location;
 };

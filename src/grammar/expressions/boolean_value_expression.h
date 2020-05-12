@@ -14,7 +14,6 @@ class BooleanValueExpression : public Expression {
 
  public:
   bool value;
-  yy::location location;
 };
 
 

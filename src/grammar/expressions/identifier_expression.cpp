@@ -3,14 +3,11 @@
 #include <utility>
 
 IdentifierExpression::IdentifierExpression(std::string identifier, const yy::location &location)
-    : identifier(std::move(identifier))
-    , location(location) {
+    : Expression(location), identifier(std::move(identifier)) {
 
 }
 
-IdentifierExpression::~IdentifierExpression() {
-
-}
+IdentifierExpression::~IdentifierExpression() = default;
 
 void IdentifierExpression::accept(Visitor *visitor) {
   visitor->visit(this);

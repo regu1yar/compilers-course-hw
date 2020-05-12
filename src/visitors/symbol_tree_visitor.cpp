@@ -129,11 +129,11 @@ void SymbolTreeVisitor::visit(WhileCycleStatement *statement) {
 }
 
 void SymbolTreeVisitor::visit(IdentifierExpression *expression) {
-  current_layer_->verifyIfVariableIsInitialized(expression->identifier);
+//  current_layer_->verifyIfVariableIsInitialized(expression->identifier);
 }
 
 void SymbolTreeVisitor::visit(IntArrayDeclaration *declaration) {
-  current_layer_->declareVariable(declaration->identifier, Array<int>().getName());
+  current_layer_->declareVariable(declaration->identifier, Type::INT_ARRAY);
 }
 
 void SymbolTreeVisitor::visit(ArrayElementAssignment *assignment) {
@@ -144,7 +144,7 @@ void SymbolTreeVisitor::visit(ArrayElementAssignment *assignment) {
 }
 
 void SymbolTreeVisitor::visit(ArrayElementExpression *expression) {
-  current_layer_->verifyIfVariableIsInitialized(expression->identifier);
+//  current_layer_->verifyIfVariableIsInitialized(expression->identifier);
 
   expression->index_expression->accept(this);
 }
@@ -178,13 +178,19 @@ void SymbolTreeVisitor::visit(VariableDeclarationStatement *statement) {
 }
 
 void SymbolTreeVisitor::visit(BooleanArrayDeclaration *declaration) {
-  current_layer_->declareVariable(declaration->identifier, Array<bool>().getName());
+  current_layer_->declareVariable(declaration->identifier, Type::BOOLEAN_ARRAY);
 }
 
 void SymbolTreeVisitor::visit(BooleanVariableDeclaration *declaration) {
-  current_layer_->declareVariable(declaration->identifier, Boolean().getName());
+  current_layer_->declareVariable(declaration->identifier, Type::BOOLEAN);
 }
 
 void SymbolTreeVisitor::visit(IntVariableDeclaration *declaration) {
-  current_layer_->declareVariable(declaration->identifier, Int().getName());
+  current_layer_->declareVariable(declaration->identifier, Type::INT);
+}
+
+ScopeLayer *SymbolTreeVisitor::buildSymbolTree(Program *program) {
+  current_layer_ = new ScopeLayer();
+  program->accept(this);
+  return current_layer_;
 }

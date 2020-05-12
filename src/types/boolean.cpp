@@ -10,10 +10,10 @@ int Boolean::toInt() const {
   throw TypeMismatchException("Expected type: int, but boolean were provided");
 }
 
-bool Boolean::toBoolean() const {
+bool Boolean::toBool() const {
   return value_;
 }
 
-std::string Boolean::getName() const {
-  return "boolean";
+Type Boolean::getType() const {
+  return Type::BOOLEAN;
 }

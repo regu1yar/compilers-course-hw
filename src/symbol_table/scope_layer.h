@@ -13,14 +13,17 @@ class ScopeLayer {
 
   ~ScopeLayer();
 
-  ScopeLayer* getParent();
+  ScopeLayer* getParent() const;
+  ScopeLayer* getChild(size_t offset) const;
 
-  void declareVariable(const std::string& name, const std::string& type);
+  void declareVariable(const std::string& name, Type type);
   void setVariableValue(const std::string& name, std::shared_ptr<BasicType> value);
   std::shared_ptr<BasicType> getVariableValue(const std::string& name) const;
+  std::shared_ptr<BasicType> getVariableValueMutable(const std::string& name);
+  Type getVariableType(const std::string& name) const;
 
-  void verifyVariableType(const std::string& name, const std::string& type) const;
-  void verifyVariableType(const std::string& name, std::shared_ptr<BasicType> type) const;
+  void verifyVariableType(const std::string& name, Type type) const;
+  void verifyVariableType(const std::string& name, const std::shared_ptr<BasicType>& type) const;
   void verifyIfVariableIsDeclared(const std::string& name) const;
   void verifyIfVariableIsInitialized(const std::string& name) const;
 
@@ -33,7 +36,7 @@ class ScopeLayer {
  private:
   ScopeLayer* parent_;
   std::vector<ScopeLayer*> children_;
-  std::unordered_map<std::string, std::string> variable_types_;
+  std::unordered_map<std::string, Type> variable_types_;
   std::unordered_map<std::string, std::shared_ptr<BasicType>> variable_values_;
 };
 

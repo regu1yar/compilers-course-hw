@@ -14,5 +14,4 @@ class UnaryMinusExpression : public Expression {
 
  public:
   Expression* operand;
-  yy::location location;
 };

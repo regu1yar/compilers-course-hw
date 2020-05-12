@@ -1,6 +1,7 @@
 #include "parentheses_expression.h"
 
-ParenthesesExpression::ParenthesesExpression(Expression *expression) : expression(expression) {
+ParenthesesExpression::ParenthesesExpression(Expression *expression, const yy::location& location)
+    : Expression(location), expression(expression) {
 
 }
 

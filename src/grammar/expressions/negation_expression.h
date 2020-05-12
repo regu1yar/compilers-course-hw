@@ -14,5 +14,4 @@ class NegationExpression : public Expression {
 
  public:
   Expression* operand;
-  yy::location location;
 };

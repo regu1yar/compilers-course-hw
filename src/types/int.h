@@ -6,12 +6,15 @@ class Int : public BasicType {
  public:
   explicit Int(int value = 0);
 
+  Int(const Int& other) = default;
+  Int& operator=(const Int& other) = default;
+
   ~Int() override = default;
 
   int toInt() const override;
-  bool toBoolean() const override;
+  bool toBool() const override;
 
-  std::string getName() const override;
+  Type getType() const override;
 
  private:
   int value_;

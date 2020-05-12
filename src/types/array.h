@@ -13,9 +13,14 @@ class Array : public BasicType {
   ~Array() override = default;
 
   int toInt() const override;
-  bool toBoolean() const override;
+  bool toBool() const override;
 
-  std::string getName() const override;
+  Type getType() const override;
+
+  T getElementValue(size_t index) const;
+  void setElementValue(size_t index, T value);
+
+  size_t getLength() const;
 
  private:
   std::vector<T> array_;

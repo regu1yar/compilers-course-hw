@@ -1,10 +1,20 @@
 #pragma once
 
-#include "visitor.h"
+#include <vector>
+#include <memory>
 
-class Interpreter : public Visitor {
+#include "template_visitor.h"
+#include "basic_type.h"
+#include "scope_layer.h"
+#include "runtime_error.h"
+
+ class Interpreter : public TemplateVisitor<std::shared_ptr<BasicType>> {
  public:
+  explicit Interpreter(ScopeLayer* global_layer);
+
   ~Interpreter() override;
+
+  void run(Program* program);
 
   void visit(ArrayElementAssignment* assignment) override;
   void visit(VariableAssignment* assignment) override;
@@ -49,4 +59,14 @@ class Interpreter : public Visitor {
   void visit(MainClass* main_class) override;
   void visit(Program* program) override;
   void visit(StatementList* statements) override;
+
+ private:
+  template<typename T>
+  void assignArrayElementValue(ArrayElementAssignment *assignment);
+
+ template<typename T>
+ std::shared_ptr<BasicType> getArrayElementValue(ArrayElementExpression* expression);
+
+ private:
+  RuntimeError error_;
 };

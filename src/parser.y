@@ -103,7 +103,10 @@
 %%
 
 %start program;
-program: main_class { $$ = new Program($1); };
+program: main_class {
+	$$ = new Program($1);
+	driver.setProgram($$);
+};
 
 main_class: "class" "identifier" "{" "public" "static" "void" "main" "(" ")" "{" statements "}" "}"  {
 	$$ = new MainClass($2, $11);
@@ -146,7 +149,7 @@ expr:
   | expr "/" expr { $$ = new SlashExpression($1, $3, driver.getParserLocation()); }
   | expr "%" expr { $$ = new PercentExpression($1, $3, driver.getParserLocation()); }
   | "-" expr %prec UNMINUS { $$ = new UnaryMinusExpression($2, driver.getParserLocation()); }
-  | "(" expr ")" { $$ = new ParenthesesExpression($2); }
+  | "(" expr ")" { $$ = new ParenthesesExpression($2, driver.getParserLocation()); }
   | expr "&&" expr { $$ = new AndExpression($1, $3, driver.getParserLocation()); }
   | expr "||" expr { $$ = new OrExpression($1, $3, driver.getParserLocation()); }
   | "!" expr %prec NEGATION { $$ = new NegationExpression($2, driver.getParserLocation()); }
@@ -154,8 +157,8 @@ expr:
   | expr ">" expr { $$ = new GreaterExpression($1, $3, driver.getParserLocation()); }
   | expr "==" expr { $$ = new EqualsExpression($1, $3, driver.getParserLocation()); }
   | expr "." "length" { $$ = new LengthExpression($1, driver.getParserLocation()); }
-  | "new" "int" "[" expr "]" ";" { $$ = new IntArrayAllocationExpression($4, driver.getParserLocation()); }
-  | "new" "boolean" "[" expr "]" ";" { $$ = new BooleanArrayAllocationExpression($4, driver.getParserLocation()); };
+  | "new" "int" "[" expr "]" { $$ = new IntArrayAllocationExpression($4, driver.getParserLocation()); }
+  | "new" "boolean" "[" expr "]" { $$ = new BooleanArrayAllocationExpression($4, driver.getParserLocation()); };
 //  | new "identifier" "(" ")" { }
 //	| "this" { }
 //  | method_invocation { };

@@ -16,7 +16,6 @@ class IdentifierExpression : public Expression {
 
  public:
   std::string identifier;
-  yy::location location;
 };
 
 

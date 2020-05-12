@@ -6,12 +6,15 @@ class Boolean : public BasicType {
  public:
   explicit Boolean(bool value = false);
 
+  Boolean(const Boolean& other) = default;
+  Boolean& operator=(const Boolean& other) = default;
+
   ~Boolean() override = default;
 
   int toInt() const override;
-  bool toBoolean() const override;
+  bool toBool() const override;
 
-  std::string getName() const override;
+  Type getType() const override;
 
  private:
   bool value_;

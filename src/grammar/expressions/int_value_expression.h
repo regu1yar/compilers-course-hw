@@ -14,5 +14,4 @@ class IntValueExpression : public Expression {
 
  public:
   int value;
-  yy::location location;
 };

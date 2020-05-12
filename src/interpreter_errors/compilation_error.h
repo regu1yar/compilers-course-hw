@@ -6,11 +6,12 @@
 
 class CompilationError : public Error {
  public:
-  CompilationError(size_t line, size_t column, std::string message)
-  : line_(line)
-  , column_(column)
-  , message_(std::move(message))
-  { }
+  CompilationError(std::string message, size_t line, size_t column)
+  : message_(std::move(message))
+  , line_(line)
+  , column_(column) {
+
+  }
 
   CompilationError(const CompilationError&) = default;
   CompilationError& operator=(const CompilationError&) = default;
@@ -25,9 +26,9 @@ class CompilationError : public Error {
   }
 
  private:
+  std::string message_;
   size_t line_;
   size_t column_;
-  std::string message_;
 };
 
 

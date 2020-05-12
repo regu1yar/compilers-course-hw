@@ -2,14 +2,11 @@
 
 
 IntValueExpression::IntValueExpression(int value, const yy::location &location)
-    : value(value)
-    , location(location) {
+    : Expression(location), value(value) {
 
 }
 
-IntValueExpression::~IntValueExpression() {
-
-}
+IntValueExpression::~IntValueExpression() = default;
 
 void IntValueExpression::accept(Visitor *visitor) {
   visitor->visit(this);

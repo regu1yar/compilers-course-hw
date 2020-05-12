@@ -1,13 +1,23 @@
 #pragma once
 
-#include "visitor.h"
+#include <stack>
+#include <vector>
+#include <unordered_set>
+
+#include "template_visitor.h"
+#include "basic_type.h"
 #include "scope_layer.h"
+#include "compilation_error.h"
 
-class SymbolTreeVisitor : public Visitor {
+#include "location.hh"
+
+class TypeCheckVisitor : public TemplateVisitor<Type> {
  public:
-  ~SymbolTreeVisitor() override;
+  explicit TypeCheckVisitor(ScopeLayer* global_layer);
 
-  ScopeLayer *buildSymbolTree(Program *program);
+  ~TypeCheckVisitor() override;
+
+  std::vector<CompilationError> runCheck(Program* program);
 
   void visit(ArrayElementAssignment* assignment) override;
   void visit(VariableAssignment* assignment) override;
@@ -53,8 +63,16 @@ class SymbolTreeVisitor : public Visitor {
   void visit(Program* program) override;
   void visit(StatementList* statements) override;
 
+ private:
+  void verifyExpressionType(Expression* expression, Type expected_type);
+  void verifyExpressionType(Expression* expression, const std::unordered_set<Type>& expected_types);
+
+  static std::string constructExpectedTypesString(const std::unordered_set<Type> &expected_types);
+
+  static Type getCorrespondedArrayType(Type array_type);
+
  public:
-  ScopeLayer* current_layer_{nullptr};
+  std::vector<CompilationError> errors_;
 };
 
 

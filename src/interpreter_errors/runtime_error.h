@@ -10,11 +10,13 @@
 
 class RuntimeError : public Error {
  public:
-  RuntimeError(size_t line, size_t column, std::string message)
-    : line_(line)
-    , column_(column)
-    , message_(std::move(message))
-  { }
+  RuntimeError() = default;
+  RuntimeError(std::string message, size_t line, size_t column)
+    : message_(std::move(message))
+    , line_(line)
+    , column_(column) {
+
+  }
 
   RuntimeError(const RuntimeError&) = default;
   RuntimeError& operator=(const RuntimeError&) = default;
@@ -29,9 +31,9 @@ class RuntimeError : public Error {
   }
 
  private:
-  size_t line_;
-  size_t column_;
   std::string message_;
+  size_t line_{};
+  size_t column_{};
 };
 
 
