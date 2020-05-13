@@ -23,6 +23,7 @@ class Driver {
 
   void setProgram(Program* program);
 
+  void printAST() const;
   void buildSymbolTree();
   void runTypeCheck();
   void interpret();

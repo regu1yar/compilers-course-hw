@@ -26,6 +26,7 @@ int main(int argc, char** argv) {
     return result;
   }
 
+  driver.printAST();
   driver.buildSymbolTree();
   driver.runTypeCheck();
   driver.interpret();

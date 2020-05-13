@@ -66,3 +66,7 @@ Driver::~Driver() {
   delete program_;
   delete global_layer_;
 }
+
+void Driver::printAST() const {
+  PrintVisitor("ast.txt").printAST(program_);
+}
