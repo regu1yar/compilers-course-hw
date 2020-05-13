@@ -38,9 +38,13 @@ blank [ \t\r]
   loc.step();
 %}
 
+"//".*                      loc.lines (yyleng); loc.step ();
+
 {blank}+                    loc.step ();
 \n+                         loc.lines (yyleng); loc.step ();
 
+"/*"                        return yy::parser::make_OPEN_COMMENT  (loc);
+"*/"                        return yy::parser::make_CLOSE_COMMENT (loc);
 "="                         return yy::parser::make_ASSIGN        (loc);
 "-"                         return yy::parser::make_MINUS         (loc);
 "+"                         return yy::parser::make_PLUS          (loc);

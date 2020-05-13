@@ -1,34 +1,6 @@
 project(mini-java-compiler)
 
 set(
-  HEADERS
-  ${CMAKE_CURRENT_SOURCE_DIR}/driver.hh
-  ${CMAKE_CURRENT_SOURCE_DIR}/interpreter_errors/runtime_error.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/interpreter_errors/compilation_error.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/interpreter_errors/error.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/parser.hh
-  ${CMAKE_CURRENT_SOURCE_DIR}/exceptions.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/main_class.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/program.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statement_list.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/statement.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/expression.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/variable_declarations/variable_declaration.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/assignments/assignment.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/assert_statement.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/assignment_statement.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/condition_clause_statement.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/print_statement.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/scope_statement.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/variable_declaration_statement.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/while_cycle_statement.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/int_value_expression.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/boolean_value_expression.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/identifier_expression.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/array_element_expression.h
-)
-
-set(
   SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/driver.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/main_class.cpp
@@ -45,7 +17,48 @@ set(
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/boolean_value_expression.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/identifier_expression.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/array_element_expression.cpp
-  grammar/expressions/plus_expression.cpp grammar/expressions/plus_expression.h grammar/expressions/minus_expression.cpp grammar/expressions/minus_expression.h grammar/expressions/star_expression.cpp grammar/expressions/star_expression.h grammar/expressions/slash_expression.cpp grammar/expressions/slash_expression.h grammar/expressions/percent_expression.cpp grammar/expressions/percent_expression.h grammar/expressions/unary_minus_expression.cpp grammar/expressions/unary_minus_expression.h grammar/expressions/parentheses_expression.cpp grammar/expressions/parentheses_expression.h grammar/expressions/and_expression.cpp grammar/expressions/and_expression.h grammar/expressions/or_expression.cpp grammar/expressions/or_expression.h grammar/expressions/negation_expression.cpp grammar/expressions/negation_expression.h grammar/expressions/less_expression.cpp grammar/expressions/less_expression.h grammar/expressions/greater_expression.cpp grammar/expressions/greater_expression.h grammar/expressions/equals_expression.cpp grammar/expressions/equals_expression.h grammar/expressions/length_expression.cpp grammar/expressions/length_expression.h grammar/expressions/int_array_allocation_expression.cpp grammar/expressions/int_array_allocation_expression.h grammar/expressions/boolean_array_allocation_expression.cpp grammar/expressions/boolean_array_allocation_expression.h grammar/variable_declarations/int_variable_declaration.cpp grammar/variable_declarations/int_variable_declaration.h grammar/variable_declarations/boolean_variable_declaration.cpp grammar/variable_declarations/boolean_variable_declaration.h grammar/variable_declarations/int_array_declaration.cpp grammar/variable_declarations/int_array_declaration.h grammar/variable_declarations/boolean_array_declaration.cpp grammar/variable_declarations/boolean_array_declaration.h grammar/condition_clauses/if_clause.cpp grammar/condition_clauses/if_clause.h grammar/condition_clauses/if_else_clause.cpp grammar/condition_clauses/if_else_clause.h grammar/assignments/variable_assignment.cpp grammar/assignments/variable_assignment.h grammar/assignments/array_element_assignment.cpp grammar/assignments/array_element_assignment.h visitors/interpreter.cpp visitors/interpreter.h types/int.cpp types/int.h types/boolean.cpp types/boolean.h symbol_table/scope_layer.cpp symbol_table/scope_layer.h visitors/symbol_tree_visitor.cpp visitors/symbol_tree_visitor.h types/array.h visitors/visitor.cpp types/basic_type.cpp grammar/variable_declarations/variable_declaration.cpp grammar/statements/statement.cpp grammar/expressions/expression.cpp grammar/condition_clauses/condition_clause.cpp grammar/assignments/assignment.cpp grammar/base_treee_element.cpp visitors/type_check_visitor.cpp visitors/type_check_visitor.h visitors/template_visitor.cpp visitors/template_visitor.h visitors/print_visitor.cpp visitors/print_visitor.h)
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/plus_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/minus_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/star_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/slash_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/percent_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/unary_minus_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/parentheses_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/and_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/or_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/negation_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/less_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/greater_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/equals_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/length_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/int_array_allocation_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/boolean_array_allocation_expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/variable_declarations/int_variable_declaration.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/variable_declarations/boolean_variable_declaration.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/variable_declarations/int_array_declaration.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/variable_declarations/boolean_array_declaration.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/condition_clauses/if_clause.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/condition_clauses/if_else_clause.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/assignments/variable_assignment.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/assignments/array_element_assignment.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/visitors/interpreter.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/types/int.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/types/boolean.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/symbol_table/scope_layer.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/visitors/symbol_tree_visitor.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/visitors/visitor.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/types/basic_type.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/variable_declarations/variable_declaration.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/statement.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/expression.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/condition_clauses/condition_clause.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/assignments/assignment.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/base_treee_element.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/visitors/type_check_visitor.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/visitors/template_visitor.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/visitors/print_visitor.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/empty_statement.cpp
+)
 
 find_package(BISON)
 find_package(FLEX)

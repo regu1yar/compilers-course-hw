@@ -82,6 +82,8 @@
     SOUT "System.out.println"
     NEW "new"
     LENGTH "length"
+    OPEN_COMMENT "/*"
+    CLOSE_COMMENT "*/"
 ;
 
 %token <std::string> IDENTIFIER "identifier"
@@ -117,7 +119,8 @@ statements:
 	| statements statement {
 		$1->pushBack($2);
 		$$ = $1;
-	};
+	}
+	;
 
 statement:
 	"assert" "(" expr ")" ";" { $$ = new AssertStatement($3, driver.getParserLocation()); }
@@ -126,7 +129,9 @@ statement:
 	| condition_clause { $$ = new ConditionClauseStatement($1); }
 	| "while" "(" expr ")" statement { $$ = new WhileCycleStatement($3, $5); }
 	| "System.out.println" "(" expr ")" ";"  { $$ = new PrintStatement($3); }
-  | assignment { $$ = new AssignmentStatement($1); };
+  | assignment { $$ = new AssignmentStatement($1); }
+  | multiline_comment { $$ = new EmptyStatement(); }
+  ;
 //	| "return" expr ";" { }
 //	| method_invocation ";" { };
 
@@ -158,7 +163,8 @@ expr:
   | expr "==" expr { $$ = new EqualsExpression($1, $3, driver.getParserLocation()); }
   | expr "." "length" { $$ = new LengthExpression($1, driver.getParserLocation()); }
   | "new" "int" "[" expr "]" { $$ = new IntArrayAllocationExpression($4, driver.getParserLocation()); }
-  | "new" "boolean" "[" expr "]" { $$ = new BooleanArrayAllocationExpression($4, driver.getParserLocation()); };
+  | "new" "boolean" "[" expr "]" { $$ = new BooleanArrayAllocationExpression($4, driver.getParserLocation()); }
+  ;
 //  | new "identifier" "(" ")" { }
 //	| "this" { }
 //  | method_invocation { };
@@ -167,17 +173,36 @@ variable_declaration:
 	"int" "identifier" ";" { $$ = new IntVariableDeclaration($2, driver.getParserLocation()); }
 	| "boolean" "identifier" ";" { $$ = new BooleanVariableDeclaration($2, driver.getParserLocation()); }
   | "int" "[" "]" "identifier" ";" { $$ = new IntArrayDeclaration($4, driver.getParserLocation()); }
-  | "boolean" "[" "]" "identifier" ";" { $$ = new BooleanArrayDeclaration($4, driver.getParserLocation()); };
+  | "boolean" "[" "]" "identifier" ";" { $$ = new BooleanArrayDeclaration($4, driver.getParserLocation()); }
+  ;
 
 condition_clause:
 	"if" "(" expr ")" statement { $$ = new IfClause($3, $5); }
 	| "if" "(" expr ")" statement "else" statement { $$ = new IfElseClause($3, $5, $7); }
+	;
 
 assignment:
 	"identifier" "=" expr ";" { $$ = new VariableAssignment($1, $3); }
-  | "identifier" "[" expr "]" "=" expr ";" { $$ = new ArrayElementAssignment($1, $3, $6); };
+  | "identifier" "[" expr "]" "=" expr ";" { $$ = new ArrayElementAssignment($1, $3, $6); }
+  ;
 
 boolean_value: "true" | "false";
+
+multiline_comment:
+	"/*" any "*/"
+	| multiline_comment multiline_comment
+	| "/*" any multiline_comment any "*/"
+	;
+
+any_token:
+	"=" | "-" | "+" | "*" | "/" | "%" | "&&" | " ||" | "!" | "<" | ">" | "==" | "(" | ")" | "[" | "]" | "{" | "}" | ";"
+	| "." | "," | "int" | "boolean" | "if" | "else" | "while" | "assert" | "class" | "public" | "private" | "protected"
+	| "return" | "this" | "static" | "void" | "main" | "System.out.println" | "new" | "length" | "identifier"
+	| "int_value" | "true" | "false";
+
+any:
+	%empty
+	| any_token any;
 
 %%
 

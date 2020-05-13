@@ -34,6 +34,7 @@
 #include "scope_statement.h"
 #include "variable_declaration_statement.h"
 #include "while_cycle_statement.h"
+#include "empty_statement.h"
 
 #include "boolean_array_declaration.h"
 #include "boolean_variable_declaration.h"
