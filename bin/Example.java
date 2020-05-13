@@ -2,7 +2,10 @@ class Example {
     public static void main() {
         int[] intArr;
         intArr = new int[10];
-        intArr[2] = -(42 - 22);
+        intArr[2] = -(42 - 22); // intArr[2] = 123;
+        // intArr[2] = 124;
+        /* intArr[2] = 123; /* nested */
+        intArr[2] = 124; */
         System.out.println(intArr[2]);
 
         boolean flag;

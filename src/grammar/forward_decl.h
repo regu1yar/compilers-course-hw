@@ -38,6 +38,7 @@ class PrintStatement;
 class ScopeStatement;
 class VariableDeclarationStatement;
 class WhileCycleStatement;
+class EmptyStatement;
 
 class VariableDeclaration;
 class BooleanArrayDeclaration;
