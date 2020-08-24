@@ -1,7 +1,7 @@
 #pragma once
 
 #include "statement.h"
-#include "condition_clause.h"
+#include "condition_clauses/condition_clause.h"
 
 class ConditionClauseStatement : public Statement {
  public:
@@ -10,6 +10,7 @@ class ConditionClauseStatement : public Statement {
   ~ConditionClauseStatement() override;
 
   void accept(Visitor* visitor) override;
+  int scopeCount() const override;
 
  public:
   ConditionClause* condition_clause;

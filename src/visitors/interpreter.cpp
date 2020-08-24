@@ -55,13 +55,17 @@ void Interpreter::visit(VariableAssignment *assignment) {
 void Interpreter::visit(IfClause *condition_clause) {
   if (accept(condition_clause->condition)->toBool()) {
     condition_clause->body->accept(this);
+  } else {
+    shiftScope(condition_clause->body->scopeCount());
   }
 }
 
 void Interpreter::visit(IfElseClause *condition_clause) {
   if (accept(condition_clause->condition)->toBool()) {
     condition_clause->if_body->accept(this);
+    shiftScope(condition_clause->else_body->scopeCount());
   } else {
+    shiftScope(condition_clause->if_body->scopeCount());
     condition_clause->else_body->accept(this);
   }
 }
@@ -239,8 +243,14 @@ void Interpreter::visit(VariableDeclarationStatement *statement) {
 }
 
 void Interpreter::visit(WhileCycleStatement *statement) {
+  bool first_loop = true;
   while (accept(statement->condition)->toBool()) {
+    if (!first_loop) {
+      shiftScope(-statement->cycle_body->scopeCount());
+    }
+
     statement->cycle_body->accept(this);
+    first_loop = false;
   }
 }
 

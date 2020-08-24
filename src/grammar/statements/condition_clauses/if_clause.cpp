@@ -14,3 +14,7 @@ IfClause::~IfClause() {
 void IfClause::accept(Visitor *visitor) {
   visitor->visit(this);
 }
+
+int IfClause::scopeCount() const {
+  return body->scopeCount();
+}

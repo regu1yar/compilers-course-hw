@@ -10,6 +10,7 @@ class VariableDeclarationStatement : public Statement {
   ~VariableDeclarationStatement() override;
 
   void accept(Visitor* visitor) override;
+  int scopeCount() const override;
 
  public:
   VariableDeclaration* variable_declaration;

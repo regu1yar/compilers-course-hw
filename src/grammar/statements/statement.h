@@ -5,4 +5,6 @@
 class Statement : public virtual BaseTreeElement {
  public:
   ~Statement() override = 0;
+
+  virtual int scopeCount() const = 0;
 };

@@ -11,3 +11,7 @@ PrintStatement::~PrintStatement() {
 void PrintStatement::accept(Visitor *visitor) {
   visitor->visit(this);
 }
+
+int PrintStatement::scopeCount() const {
+  return 0;
+}

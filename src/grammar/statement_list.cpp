@@ -11,3 +11,9 @@ void StatementList::pushFront(Statement *statement) {
 void StatementList::accept(Visitor *visitor) {
   visitor->visit(this);
 }
+
+StatementList::~StatementList() {
+  for (auto& statement : statements) {
+    delete statement;
+  }
+}

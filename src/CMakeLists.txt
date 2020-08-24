@@ -37,8 +37,8 @@ set(
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/variable_declarations/boolean_variable_declaration.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/variable_declarations/int_array_declaration.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/variable_declarations/boolean_array_declaration.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/condition_clauses/if_clause.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/condition_clauses/if_else_clause.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/condition_clauses/if_clause.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/condition_clauses/if_else_clause.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/assignments/variable_assignment.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/assignments/array_element_assignment.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/visitors/interpreter.cpp
@@ -51,7 +51,7 @@ set(
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/variable_declarations/variable_declaration.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/statement.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions/expression.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/condition_clauses/condition_clause.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/condition_clauses/condition_clause.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/assignments/assignment.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/base_treee_element.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/visitors/type_check_visitor.cpp
@@ -97,7 +97,7 @@ target_include_directories(mini-java-compiler
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/expressions
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar/variable_declarations
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/condition_clauses
+  ${CMAKE_CURRENT_SOURCE_DIR}/grammar/statements/condition_clauses
   ${CMAKE_CURRENT_SOURCE_DIR}/visitors
   ${CMAKE_CURRENT_SOURCE_DIR}/types
   ${CMAKE_CURRENT_SOURCE_DIR}/symbol_table

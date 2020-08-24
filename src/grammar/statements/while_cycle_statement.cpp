@@ -13,3 +13,7 @@ WhileCycleStatement::~WhileCycleStatement() {
 void WhileCycleStatement::accept(Visitor *visitor) {
   visitor->visit(this);
 }
+
+int WhileCycleStatement::scopeCount() const {
+  return cycle_body->scopeCount();
+}

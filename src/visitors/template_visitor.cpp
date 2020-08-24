@@ -48,3 +48,13 @@ void TemplateVisitor<T>::closeScope() {
 
 template void TemplateVisitor<Type>::closeScope();
 template void TemplateVisitor<std::shared_ptr<BasicType>>::closeScope();
+
+template<typename T>
+void TemplateVisitor<T>::shiftScope(int delta) {
+  size_t new_offset = offsets_.top() + delta;
+  offsets_.pop();
+  offsets_.push(new_offset);
+}
+
+template void TemplateVisitor<Type>::shiftScope(int delta);
+template void TemplateVisitor<std::shared_ptr<BasicType>>::shiftScope(int delta);

@@ -10,6 +10,7 @@ class PrintStatement : public Statement {
   ~PrintStatement() override;
 
   void accept(Visitor* visitor) override;
+  int scopeCount() const override;
 
  public:
   Expression* expression;

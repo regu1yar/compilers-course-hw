@@ -10,6 +10,7 @@ class AssignmentStatement : public Statement {
   ~AssignmentStatement() override;
 
   void accept(Visitor* visitor) override;
+  int scopeCount() const override;
 
  public:
   Assignment* assignment;

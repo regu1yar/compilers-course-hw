@@ -12,3 +12,7 @@ VariableDeclarationStatement::~VariableDeclarationStatement() {
 void VariableDeclarationStatement::accept(Visitor *visitor) {
   visitor->visit(this);
 }
+
+int VariableDeclarationStatement::scopeCount() const {
+  return 0;
+}

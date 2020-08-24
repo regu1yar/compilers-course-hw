@@ -10,7 +10,7 @@ class StatementList : public BaseTreeElement {
   void pushBack(Statement* statement);
   void pushFront(Statement* statement);
 
-  ~StatementList() override = default;
+  ~StatementList() override;
 
   void accept(Visitor* visitor) override;
 

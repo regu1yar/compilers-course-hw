@@ -12,3 +12,7 @@ ScopeStatement::~ScopeStatement() {
 void ScopeStatement::accept(Visitor *visitor) {
   visitor->visit(this);
 }
+
+int ScopeStatement::scopeCount() const {
+  return 1;
+}

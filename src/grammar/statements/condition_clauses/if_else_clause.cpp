@@ -16,3 +16,7 @@ IfElseClause::~IfElseClause() {
 void IfElseClause::accept(Visitor *visitor) {
   visitor->visit(this);
 }
+
+int IfElseClause::scopeCount() const {
+  return if_body->scopeCount() + else_body->scopeCount();
+}

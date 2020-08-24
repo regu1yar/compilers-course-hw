@@ -10,12 +10,14 @@ class Example {
 
         boolean flag;
         flag = true && (intArr[2] == -20);
-        if (flag) {
+        if (!flag) {
             intArr[3] = 0;
             System.out.println(intArr[2] + 20);
         } else {
+            int intVal;
+            intVal = -2;
             intArr[3] = 1;
-            System.out.println(intArr[2] - 20);
+            System.out.println(intArr[2] - 20 + intVal);
         }
         System.out.println(intArr[1 + 1 + 1]);
     }

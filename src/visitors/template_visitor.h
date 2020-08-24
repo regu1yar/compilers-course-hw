@@ -18,6 +18,7 @@ class TemplateVisitor : public virtual Visitor {
 
   void openScope();
   void closeScope();
+  void shiftScope(int delta);
 
  protected:
   ScopeLayer* current_layer_;

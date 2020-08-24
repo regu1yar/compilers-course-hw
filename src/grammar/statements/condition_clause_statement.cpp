@@ -12,3 +12,7 @@ ConditionClauseStatement::~ConditionClauseStatement() {
 void ConditionClauseStatement::accept(Visitor *visitor) {
   visitor->visit(this);
 }
+
+int ConditionClauseStatement::scopeCount() const {
+  return 0;
+}

@@ -10,6 +10,7 @@ class ScopeStatement : public Statement {
   ~ScopeStatement() override;
 
   void accept(Visitor* visitor) override;
+  int scopeCount() const override;
 
  public:
   StatementList* statements;

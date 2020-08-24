@@ -13,3 +13,7 @@ AssertStatement::~AssertStatement() {
 void AssertStatement::accept(Visitor *visitor) {
   visitor->visit(this);
 }
+
+int AssertStatement::scopeCount() const {
+  return 0;
+}
